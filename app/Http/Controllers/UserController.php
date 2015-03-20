@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Subalcatel\User;
 
+
 /**
  * Class UserController
  * @package Subalcatel\Http\Controllers:q
@@ -41,9 +42,9 @@ class UserController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function levels($id)
+    public function levels($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('diveLevels',    'diveLevels.diveLabel',
             'nitroxLevels',  'nitroxLevels.nitroxLabel',
             'monitorLevels', 'monitorLevels.monitorLabel',
@@ -59,9 +60,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function adhesion($id)
+    public function adhesion($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('adhesion', 'adhesion.insurance', 'adhesion.origin');
 
         return response()->json($user);
@@ -72,9 +73,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function certificate($id)
+    public function certificate($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('certificate');
 
         return response()->json($user);
@@ -85,9 +86,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function articles($id)
+    public function articles($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('articles', 'articles.comments', 'articles.comments.user');
 
         return response()->json($user);
@@ -98,9 +99,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function comments($id)
+    public function comments($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('comments', 'comments.article', 'comments.article.user');
 
         return response()->json($user);
@@ -111,9 +112,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function diver($id)
+    public function diver($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('dives', 'dives.owner');
 
         return response()->json($user);
@@ -124,9 +125,9 @@ class UserController extends Controller {
      * @param $id
      * @return \Illuminate\Support\Collection|null|static
      */
-    public function diveOwner($id)
+    public function diveOwner($slug)
     {
-        $user = User::find($id);
+        $user = User::findBySlug($slug);
         $user->load('diveOwner', 'diveOwner.users');
 
         return $user;
