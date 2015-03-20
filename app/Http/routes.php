@@ -23,3 +23,9 @@ Route::get('/user/{slug}/dive',        'UserController@diver');
 Route::get('/user/{slug}/dive/owner',  'UserController@diveOwner');
 
 Route::get('/address',                 'AddressController@index');
+Route::get('/address/{id}',            'AddressController@show');
+
+Route::get('/article',                 'ArticleController@index');
+Route::get('/article/{slug}',          'ArticleController@show');
+Route::get('/article/{slug}/comment',  'ArticleController@comments');
+Route::get('/article/{slug}/user',     'ArticleController@user');
