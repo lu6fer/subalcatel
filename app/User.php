@@ -8,7 +8,8 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
  * Class User
  * @package Subalcatel
  */
-class User extends Model implements SluggableInterface {
+class User extends Model implements SluggableInterface
+{
 
     use SluggableTrait;
     /**

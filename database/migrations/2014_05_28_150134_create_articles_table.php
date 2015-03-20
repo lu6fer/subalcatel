@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
+            $table->string('slug')->nullable();
 			$table->mediumtext('content');
 			$table->boolean('visible')->default(1);
 			$table->integer('user_id')->unsigned()->index();
