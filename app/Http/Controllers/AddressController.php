@@ -28,6 +28,9 @@ class AddressController extends Controller {
     public function show($id)
     {
         $address = Address::find($id);
+        if(empty($address)) {
+            return response()->json();
+        }
         $address->load('user');
         return response()->json($address);
     }

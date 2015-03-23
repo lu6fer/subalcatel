@@ -28,6 +28,9 @@ class ArticleController extends Controller {
     public function show($slug)
     {
         $article = Article::findBySlug($slug);
+        if(empty($article)) {
+            return response()->json();
+        }
         $article->load('comments');
         return response()->json($article);
     }
@@ -40,6 +43,9 @@ class ArticleController extends Controller {
     public function comments($slug)
     {
         $article = Article::findBySlug($slug);
+        if(empty($article)) {
+            return response()->json();
+        }
         return response()->json($article->comments);
     }
 
@@ -51,6 +57,9 @@ class ArticleController extends Controller {
     public function user($slug)
     {
         $article = Article::findBySlug($slug);
+        if(empty($article)) {
+            return response()->json();
+        }
         return response()->json($article->user);
     }
 

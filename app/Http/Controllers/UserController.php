@@ -32,6 +32,9 @@ class UserController extends Controller {
     public function show($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('address');
         return response()->json($user);
     }
@@ -45,6 +48,9 @@ class UserController extends Controller {
     public function levels($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('diveLevels',    'diveLevels.diveLabel',
             'nitroxLevels',  'nitroxLevels.nitroxLabel',
             'monitorLevels', 'monitorLevels.monitorLabel',
@@ -63,6 +69,9 @@ class UserController extends Controller {
     public function adhesion($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('adhesion', 'adhesion.insurance', 'adhesion.origin');
 
         return response()->json($user);
@@ -76,6 +85,9 @@ class UserController extends Controller {
     public function certificate($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('certificate');
 
         return response()->json($user);
@@ -89,6 +101,9 @@ class UserController extends Controller {
     public function articles($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('articles', 'articles.comments', 'articles.comments.user');
 
         return response()->json($user);
@@ -102,6 +117,9 @@ class UserController extends Controller {
     public function comments($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('comments', 'comments.article', 'comments.article.user');
 
         return response()->json($user);
@@ -115,6 +133,9 @@ class UserController extends Controller {
     public function diver($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('dives', 'dives.owner');
 
         return response()->json($user);
@@ -128,6 +149,9 @@ class UserController extends Controller {
     public function diveOwner($slug)
     {
         $user = User::findBySlug($slug);
+        if(empty($user)) {
+            return response()->json();
+        }
         $user->load('diveOwner', 'diveOwner.users');
 
         return $user;
