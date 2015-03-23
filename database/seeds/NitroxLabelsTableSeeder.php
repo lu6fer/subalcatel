@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class NitroxLabelsTableSeeder extends Seeder
 {
@@ -11,9 +12,18 @@ class NitroxLabelsTableSeeder extends Seeder
         DB::table($table)->truncate();
 
         $data = array(
-            array('level' => 'Nitrox'),
-            array('level' => 'Nitrox confirme'),
-            array('level' => 'Moniteur nitrox confirme'),
+            array(
+                'level' => 'Nitrox',
+                'slug' => Str::slug('Nitrox'),
+            ),
+            array(
+                'level' => 'Nitrox confirmé',
+                'slug' => Str::slug('Nitrox confirmé'),
+            ),
+            array(
+                'level' => 'Moniteur nitrox confirmé',
+                'slug' => Str::slug('Moniteur nitrox confirmé'),
+            ),
         );
 
         DB::table($table)->insert($data);

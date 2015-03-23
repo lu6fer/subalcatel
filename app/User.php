@@ -22,7 +22,7 @@ class User extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'id'];
 
     /**
      * Sluggable config

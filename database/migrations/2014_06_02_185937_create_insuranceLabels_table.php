@@ -15,6 +15,7 @@ class CreateInsuranceLabelsTable extends Migration {
 		Schema::create('insuranceLabels', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('slug');
 			$table->string('insurance');
 			$table->timestamps();
 		});

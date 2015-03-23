@@ -15,6 +15,7 @@ class CreateOriginLabelsTable extends Migration {
 		Schema::create('originLabels', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('slug');
 			$table->string('origin');
 			$table->timestamps();
 		});

@@ -29,3 +29,12 @@ Route::get('/article',                 'ArticleController@index');
 Route::get('/article/{slug}',          'ArticleController@show');
 Route::get('/article/{slug}/comment',  'ArticleController@comments');
 Route::get('/article/{slug}/user',     'ArticleController@user');
+
+Route::get('/level',                   'LevelsController@index');
+Route::get('/level/boat',              'LevelsController@boat');
+Route::get('/level/dive',              'LevelsController@dive');
+Route::get('/level/nitrox',            'LevelsController@nitrox');
+Route::get('/level/monitor',           'LevelsController@monitor');
+
+Route::get('/dive',                    'DivesController@index');
+Route::get('/dive/{id}/user',          'DivesController@registered');

@@ -15,6 +15,7 @@ class CreateBoatLabelsTable extends Migration {
 		Schema::create('boatLabels', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('slug');
 			$table->string('level');
 			$table->timestamps();
 		});

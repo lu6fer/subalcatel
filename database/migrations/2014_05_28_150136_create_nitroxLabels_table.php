@@ -15,6 +15,7 @@ class CreateNitroxLabelsTable extends Migration {
 		Schema::create('nitroxLabels', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('slug');
 			$table->string('level');
 			$table->timestamps();
 		});

@@ -15,6 +15,7 @@ class CreateMonitorLabelsTable extends Migration {
 		Schema::create('monitorLabels', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('slug');
 			$table->string('level');
 			$table->timestamps();
 		});
