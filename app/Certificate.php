@@ -13,6 +13,11 @@ class Certificate extends Model
      */
     protected $table = 'certificate';
 
+    protected $hidden = [
+        'id',
+        'user_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

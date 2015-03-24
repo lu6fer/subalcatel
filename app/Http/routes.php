@@ -37,4 +37,7 @@ Route::get('/level/nitrox',            'LevelsController@nitrox');
 Route::get('/level/monitor',           'LevelsController@monitor');
 
 Route::get('/dive',                    'DivesController@index');
-Route::get('/dive/{id}/user',          'DivesController@registered');
+Route::get('/dive/{slug}/user',        'DivesController@registered');
+
+Route::get('/adhesion/insurance',      'AdhesionController@insurance');
+Route::get('/adhesion/origin',         'AdhesionController@origin');

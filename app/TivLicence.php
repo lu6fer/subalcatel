@@ -9,6 +9,11 @@ class TivLicence extends Model
      */
     protected $table = 'tivLicences';
 
+    protected $hidden = [
+        'id',
+        'user_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

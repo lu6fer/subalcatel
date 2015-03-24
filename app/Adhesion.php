@@ -9,9 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 class Adhesion extends Model
 {
     /**
+     * Table name
      * @var string
      */
     protected $table = 'adhesions';
+
+    /**
+     * Hidden fields
+     * @var array
+     */
+    protected $hidden = [
+        'id',
+        'user_id',
+        'insurance_label_id',
+        'origin_label_id'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

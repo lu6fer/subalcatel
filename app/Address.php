@@ -13,6 +13,10 @@ class Address extends Model
      */
     protected $table = 'address';
 
+    protected $hidden =[
+        'id',
+        'user_id'
+    ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

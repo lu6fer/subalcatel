@@ -17,6 +17,11 @@ class Article extends Model implements SluggableInterface
      */
 	protected $table = 'articles';
 
+    protected $hidden = [
+        'id',
+        'user_id'
+    ];
+
     /**
      * Sluggable config
      * @var array

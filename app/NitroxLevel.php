@@ -10,6 +10,12 @@ class NitroxLevel extends Model
      */
     protected $table = 'nitroxLevels';
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'nitrox_label_id'
+    ];
+
     /**
      * Belongs to relationship
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

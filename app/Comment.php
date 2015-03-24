@@ -14,6 +14,12 @@ class Comment extends Model
      */
 	protected $table = 'comments';
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'article_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

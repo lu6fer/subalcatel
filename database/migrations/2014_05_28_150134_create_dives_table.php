@@ -16,6 +16,7 @@ class CreateDivesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
+            $table->string('slug');
 			$table->mediumtext('description');
 			$table->string('place');
 			$table->boolean('active')->default(1);

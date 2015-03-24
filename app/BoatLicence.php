@@ -10,6 +10,12 @@ class BoatLicence extends Model
      */
     protected $table = 'boatLicences';
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'boat_label_id'
+    ];
+
     /**
      * Belongs to relationship
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -24,9 +24,9 @@ class DivesController extends Controller {
 		return response()->json($dive);
 	}
 
-    public function registered($id)
+    public function registered($slug)
     {
-        $dive = Dive::find($id);
+        $dive = Dive::findBySlug($slug);
         if(empty($dive)){
             return response()->json();
         }

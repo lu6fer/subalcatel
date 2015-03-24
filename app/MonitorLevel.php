@@ -10,6 +10,12 @@ class MonitorLevel extends Model
      */
     protected $table = 'monitorLevels';
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'monitor_label_id'
+    ];
+
     /**
      * Belongs to relationship
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

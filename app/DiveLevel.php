@@ -11,6 +11,12 @@ class DiveLevel extends Model
      */
     protected $table = 'diveLevels';
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'dive_label_id'
+    ];
+
     /**
      * Belongs to relationship
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
