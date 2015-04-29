@@ -1,0 +1,22 @@
+<ul class="nav navbar-nav">
+    <li data-match-route="/$">
+        <a ui-sref="home">Accueil</a>
+    </li>
+
+    <li data-match-route="/informations.*" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" bs-dropdown data-template="about-dropdown-template">
+            Information
+            <span class="caret"></span>
+        </a>
+        <script type="text/ng-template" id="about-dropdown-template">
+            <ul class="dropdown-menu">
+                <li>
+                    <a ui-sref="informations.a-propos">&Agrave;-propos</a>
+                </li>
+                <li>
+                    <a ui-sref="informations.contact">Contact</a>
+                </li>
+            </ul>
+        </script>
+    </li>
+</ul>

@@ -21,7 +21,8 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		return response()->json(User::all());
+        $user = User::where('active', '=', '1')->paginate(10);
+		return response()->json($user);
 	}
 
     /**

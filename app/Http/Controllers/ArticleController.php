@@ -15,7 +15,7 @@ class ArticleController extends Controller {
 	 */
 	public function index()
 	{
-        $article = Article::where('visible', '=', '1')->get();
+        $article = Article::where('visible', '=', '1')->paginate(10);
 		return response()->json($article);
 	}
 

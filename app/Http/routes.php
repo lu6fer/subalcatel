@@ -42,5 +42,6 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('/adhesion/origin',         'AdhesionController@origin');
 });
 
-Route::get('/',                            'HomeController@index');
+Route::get('/',                            'HomeController@bootstrap');
+//Route::get('/foundation',                  'HomeController@foundation');
 

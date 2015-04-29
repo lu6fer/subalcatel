@@ -18,7 +18,6 @@ class CreateUsersTable extends Migration {
 			$table->string('name');
 			$table->string('firstname');
             $table->string('slug')->nullable();
-			//$table->integer('adresseId')->unsigned()->nullable();;
 			$table->string('email')->unique();
 			$table->string('phone');
 			$table->string('proPhone')->nullable();
@@ -28,6 +27,7 @@ class CreateUsersTable extends Migration {
 			$table->string('birthzip');
 			$table->string('password');
 			$table->string('remember_token');
+            $table->boolean('active')->default(1);
 			$table->timestamps();
 		});
 	}

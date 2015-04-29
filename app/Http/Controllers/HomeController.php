@@ -12,9 +12,13 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function bootstrap()
 	{
-		return view('index');
+		return view('bootstrap');
 	}
 
+    public function foundation()
+    {
+        return view('foundation');
+    }
 }

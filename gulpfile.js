@@ -12,5 +12,14 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix
+        .sass('subalcatel.scss')
+        .scripts(
+        [
+            'app.js',
+            'subalcatel/**'
+        ],
+        'public/js/subalcatel.js')
+       .version(['css/subalcatel.css', 'js/subalcatel.js'])
+       ;
 });
