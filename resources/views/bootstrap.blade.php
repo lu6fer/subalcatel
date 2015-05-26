@@ -35,6 +35,8 @@
                 src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.1/angular-strap.tpl.js"></script>
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
 
         <!--<script type="text/javascript"
                 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -45,5 +47,8 @@
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.1/angular-strap.tpl.min.js"></script>-->
         <script type="text/javascript" src="{{ elixir('js/subalcatel.js') }}"></script>
+        <script>
+            subalcatelApp.constant("CSRF_TOKEN", '{{ csrf_token() }}');
+        </script>
     </body>
 </html>

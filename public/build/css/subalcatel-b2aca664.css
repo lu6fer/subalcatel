@@ -1,0 +1,50 @@
+html {
+  position: relative;
+  min-height: 100%; }
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px; }
+
+.content {
+  padding-top: 50px; }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  background-color: #f5f5f5; }
+
+.aside .aside-dialog .aside-header {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7; }
+
+.aside .aside-dialog .aside-header .close,
+.aside .aside-dialog .aside-header {
+  color: #777 !important; }
+
+@media screen and (max-width: 767px) {
+  .navbar-toggle-left {
+    float: left !important;
+    z-index: 2000; }
+  .navbar-brand {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    width: 100%; }
+  .navbar-toggle-right {
+    float: right !important;
+    z-index: 2000; }
+  .navbar-toggle-right > .navbar-toggle {
+    margin-left: 0;
+    margin-right: 15px;
+    z-index: 2001; }
+  .navbar-toggle-left > .navbar-toggle {
+    margin-left: 15px;
+    margin-right: 0;
+    z-index: 2001; } }
+
+/*# sourceMappingURL=subalcatel.css.map */

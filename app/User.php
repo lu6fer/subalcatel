@@ -3,15 +3,19 @@
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
  * Class User
  * @package Subalcatel
  */
-class User extends Model implements SluggableInterface
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, SluggableInterface
 {
 
-    use SluggableTrait;
+    use Authenticatable, CanResetPassword, SluggableTrait;
     /**
      * @var string
      */

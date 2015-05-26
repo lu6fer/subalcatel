@@ -24,9 +24,12 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => 'Subalcatel\Http\Middleware\Authenticate',
-		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' => 'Subalcatel\Http\Middleware\RedirectIfAuthenticated',
+		'auth'        => 'Subalcatel\Http\Middleware\Authenticate',
+		'auth.basic'  => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest'       => 'Subalcatel\Http\Middleware\RedirectIfAuthenticated',
+        'jwt.auth'    => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+        'csrf'        => 'Subalcatel\Http\Middleware\VerifyCsrfToken'
 	];
 
 }

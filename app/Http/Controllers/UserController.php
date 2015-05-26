@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Subalcatel\User;
 
 
+
 /**
  * Class UserController
  * @package Subalcatel\Http\Controllers:q
