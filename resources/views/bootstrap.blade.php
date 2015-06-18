@@ -19,6 +19,7 @@
         <![endif]-->
     </head>
     <body ng-app="subalcatelApp">
+        <div bs-alert id="alerts-container"></div>
         <div ng-controller="main">
             <div navbar></div>
             <div content></div>
@@ -30,9 +31,9 @@
         <script type="text/javascript"
                 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
         <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.1/angular-strap.js"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.4/angular-strap.js"></script>
         <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.1/angular-strap.tpl.js"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.4/angular-strap.tpl.js"></script>
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
         <script type="text/javascript"

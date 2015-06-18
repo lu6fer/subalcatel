@@ -3,6 +3,7 @@
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Subalcatel\Http\Requests;
+use Illuminate\Http\Response as HttpResponse;
 use Subalcatel\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -30,5 +31,18 @@ class AuthController extends Controller {
 
         // all good so return the token
         return response()->json(compact('token'));
+    }
+
+    /*public function logout()
+    {
+
+    }*/
+
+    public function check() {
+        try {
+            return response()->json(['user' => JWTAuth::parseToken()->toUser()]);
+        } catch (exception $e) {
+            return response()->json(['error' => $e->getMessage()], HttpResponse::HTTP_UNAUTHORIZED);
+        }
     }
 }

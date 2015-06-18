@@ -10,19 +10,58 @@ var subalcatelApp = angular.module('subalcatelApp',
 subalcatelApp.constant(
     'api_url', '/api'
 );
-subalcatelApp.factory('loginFactory', [
-    '$http',
-    'api_url',
-    function($http, api_url) {
-        var loginFact = {};
 
-        loginFact.signin = function (credentials) {
-            return $http.post(api_url + '/signin', credentials);
-        };
+subalcatelApp.config(function Config($httpProvider, jwtInterceptorProvider) {
+    jwtInterceptorProvider.tokenGetter = [
+        'config',
+        'jwtHelper',
+        '$alert',
+        '$http',
+        function(config, jwtHelper, $alert, $http) {
+            var token = localStorage.getItem('id_token');
+            var refreshToken = localStorage.getItem('refresh_token');
+            // Skip authentication for any requests ending in .html
+            if (config.url.substr(config.url.length - 5) == '.html') {
+                return null;
+            }
 
-        return loginFact;
-    }
-]);
+            if (!token || token == "undefined") {
+                var token_error = $alert({
+                    title: 'Token Error',
+                    content: 'You are not log in',
+                    type: 'danger',
+                    placement: 'top',
+                    show: 'true',
+                    container: 'body'
+                });
+            }
+            else if (jwtHelper.isTokenExpired(token)) {
+                // This is a promise of a JWT id_token
+                return $http({
+                    url: '/delegation',
+                    // This makes it so that this request doesn't send the JWT
+                    skipAuthorization: true,
+                    method: 'POST',
+                    data: {
+                        grant_type: 'refresh_token',
+                        refresh_token: refreshToken
+                    }
+                }).then(function(response) {
+                    var token = response.data.token;
+                    localStorage.setItem('id_token', token);
+                    return token;
+                });
+            }
+            else {
+                return token;
+            }
+
+            return token;
+        }
+    ];
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+});
 subalcatelApp.controller('main', ['$scope', function($scope){
 
 }]);
@@ -45,7 +84,8 @@ subalcatelApp.directive('footer', [ function(){
 subalcatelApp.directive('login', [
     'loginFactory',
     'jwtHelper',
-    function(loginFactory, jwtHelper) {
+    '$alert',
+    function(loginFactory, jwtHelper, $alert) {
         return {
             restrict: 'AE   ',
             templateUrl: 'templates/directives/login.html',
@@ -55,10 +95,35 @@ subalcatelApp.directive('login', [
                 scope.login = function() {
                     loginFactory.signin(scope.credentials).
                         success(function(login) {
-                            console.log(jwtHelper.decodeToken(login.token));
-                            console.log(jwtHelper.getTokenExpirationDate(login.token));
+                            localStorage.setItem('id_token', login.token);
+                            loginFactory.isAuth = true;
+                            console.log(login);
+                        })
+                        .error(function(error) {
+                            var alert_error = $alert({
+                                title: 'Error',
+                                content: error.error,
+                                type: 'danger',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body'
+                            });
                         });
-                }
+                };
+
+                scope.ping = function() {
+                    loginFactory.ping()
+                        .success(function(data) {
+                            console.log('User is auth :' + loginFactory.isAuth);
+                            console.log(data);
+                        })
+                        .error(function(err) {
+                            console.log('User is auth :' + loginFactory.isAuth);
+                            console.log(err);
+                        });
+                };
+
+                scope.isAuth = loginFactory.isAuth;
             }
         }
     }
@@ -125,4 +190,23 @@ subalcatelApp.config([
     }
 ]);
 
+subalcatelApp.factory('loginFactory', [
+    '$http',
+    'api_url',
+    function($http, api_url) {
+        var loginFact = {};
+
+        loginFact.isAuth = false;
+
+        loginFact.signin = function (credentials) {
+            return $http.post(api_url + '/auth/signin', credentials);
+        };
+
+        loginFact.ping = function() {
+            return $http.get(api_url + '/auth/ping');
+        };
+
+        return loginFact;
+    }
+]);
 //# sourceMappingURL=subalcatel.js.map

@@ -1,7 +1,8 @@
 subalcatelApp.directive('login', [
     'loginFactory',
     'jwtHelper',
-    function(loginFactory, jwtHelper) {
+    '$alert',
+    function(loginFactory, jwtHelper, $alert) {
         return {
             restrict: 'AE   ',
             templateUrl: 'templates/directives/login.html',
@@ -11,10 +12,35 @@ subalcatelApp.directive('login', [
                 scope.login = function() {
                     loginFactory.signin(scope.credentials).
                         success(function(login) {
-                            console.log(jwtHelper.decodeToken(login.token));
-                            console.log(jwtHelper.getTokenExpirationDate(login.token));
+                            localStorage.setItem('id_token', login.token);
+                            loginFactory.isAuth = true;
+                            console.log(login);
+                        })
+                        .error(function(error) {
+                            var alert_error = $alert({
+                                title: 'Error',
+                                content: error.error,
+                                type: 'danger',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body'
+                            });
                         });
-                }
+                };
+
+                scope.ping = function() {
+                    loginFactory.ping()
+                        .success(function(data) {
+                            console.log('User is auth :' + loginFactory.isAuth);
+                            console.log(data);
+                        })
+                        .error(function(err) {
+                            console.log('User is auth :' + loginFactory.isAuth);
+                            console.log(err);
+                        });
+                };
+
+                scope.isAuth = loginFactory.isAuth;
             }
         }
     }

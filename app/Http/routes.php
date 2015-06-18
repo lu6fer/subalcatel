@@ -10,8 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['prefix' => 'api',], function(){
-    Route::post('/signin',                 'AuthController@authenticate');
+Route::group(['prefix' => 'api'], function(){
+    Route::group(['prefix' => 'auth'], function() {
+        Route::post('/signin',             'AuthController@authenticate');
+        Route::get('/ping',                'AuthController@check');
+        Route::post('/refresh',            'AuthController@refresh');
+        Route::get('/logout',              'AuthController@logout');
+    });
     Route::get('/user',                    'UserController@index');
     Route::get('/user/{slug}',             'UserController@show');
     Route::get('/user/{slug}/level',       'UserController@levels');
