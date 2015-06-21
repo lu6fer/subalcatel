@@ -14,13 +14,14 @@ class Dive_userTableSeeder extends Seeder
             array(
                 'dive_id' => '1',
                 'user_id' => '2',
-                'comment' => 'Remise a l\'eau'
+                'comment' => 'Remise a l\'eau',
+                'drink'   => '0'
             ),
             array(
                 'dive_id' => '1',
                 'user_id' => '2',
                 'comment' => 'Remise a l\'eau',
-                'drink' => '1'
+                'drink'   => '1'
             )
         );
 
