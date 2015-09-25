@@ -19,7 +19,7 @@ subalcatelApp.directive('login', [
                         .error(function(error) {
                             var alert_error = $alert({
                                 title: 'Error',
-                                content: error.error,
+                                content: error.error  || 'Erreur',
                                 type: 'danger',
                                 placement: 'top',
                                 show: 'true',

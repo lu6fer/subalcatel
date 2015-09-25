@@ -1,7 +1,8 @@
-<?php namespace Subalcatel\Events;
+<?php
 
-abstract class Event {
+namespace Subalcatel\Events;
 
-	//
-
+abstract class Event
+{
+    //
 }

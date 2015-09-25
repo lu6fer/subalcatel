@@ -1,162 +1,39 @@
-<?php namespace Subalcatel;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+namespace Subalcatel;
+
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-/**
- * Class User
- * @package Subalcatel
- */
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, SluggableInterface
+class User extends Model implements AuthenticatableContract,
+                                    AuthorizableContract,
+                                    CanResetPasswordContract
 {
+    use Authenticatable, Authorizable, CanResetPassword;
 
-    use Authenticatable, CanResetPassword, SluggableTrait;
     /**
+     * The database table used by the model.
+     *
      * @var string
      */
-	protected $table = 'users';
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'id'];
-
-    /**
-     * Sluggable config
-     * @var array
-     */
-    protected $sluggable = array(
-        'build_from' => array('firstname', 'name'),
-        'save_to' => 'slug'
-    );
-
-
-    /*
-	|--------------------------------------------------------------------------
-	| User's gestion
-	|--------------------------------------------------------------------------
-	|
-	| Relationship to addresses and to adhesion
-	|
-	*/
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function address()
-    {
-        return $this->hasOne('Subalcatel\Address');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function adhesion()
-    {
-        return $this->hasMany('Subalcatel\Adhesion')->orderBy('date', 'desc');
-    }
-
-    public function certificate()
-    {
-        return $this->hasOne('Subalcatel\Certificate');
-    }
-
-    /*
-	|--------------------------------------------------------------------------
-	| User's blog
-	|--------------------------------------------------------------------------
-	|
-	| Relationship to articles and to comments
-	|
-	*/
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articles()
-    {
-        return $this->hasMany('Subalcatel\Article');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany('Subalcatel\Comment');
-    }
-
-    /*
-   |--------------------------------------------------------------------------
-   | User's dive
-   |--------------------------------------------------------------------------
-   |
-   |
-   */
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function dives()
-    {
-        return $this->belongsToMany('Subalcatel\Dive')->withPivot('comment', 'drink');
-    }
-
-    public function diveOwner()
-    {
-        return $this->hasMany('Subalcatel\Dive', 'owner');
-    }
-
-    /*
-	|--------------------------------------------------------------------------
-	| User's licence and levels
-	|--------------------------------------------------------------------------
-	|
-	| All user's licences and levels relationship
-	|
-	*/
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function diveLevels()
-    {
-        return $this->hasMany('Subalcatel\DiveLevel')->orderBy('date', 'desc');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function nitroxLevels()
-    {
-        return $this->hasMany('Subalcatel\NitroxLevel')->orderBy('date', 'desc');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function monitorLevels()
-    {
-        return $this->hasMany('Subalcatel\MonitorLevel')->orderBy('date', 'desc');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function boatLicences()
-    {
-        return $this->hasMany('Subalcatel\BoatLicence')->orderBy('date', 'desc');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tivLicence()
-    {
-        return $this->hasMany('Subalcatel\TivLicence');
-    }
-
+    protected $hidden = ['password', 'remember_token'];
 }

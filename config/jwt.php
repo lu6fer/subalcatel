@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'secret' => env('JWT_SECRET', 'Nyq0HeW2OVMFo2Ur84ppEGQuMyZhTp2O'),
+    'secret' => env('JWT_SECRET', 'aEljn4lfOMuzTZNYKJpY9CqhX8ah3G2h'),
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'identifier' => 'slug',
+    'identifier' => 'id',
 
     /*
     |--------------------------------------------------------------------------

@@ -21,7 +21,9 @@ subalcatelApp.config(function Config($httpProvider, jwtInterceptorProvider) {
             var token = localStorage.getItem('id_token');
             var refreshToken = localStorage.getItem('refresh_token');
             // Skip authentication for any requests ending in .html
-            if (config.url.substr(config.url.length - 5) == '.html') {
+            //console.log(config.url);
+            if ((config.url.substr(config.url.length - 5) == '.html') || config.url.match(/signin/g)) {
+                console.log('Macth "html" || "signin"');
                 return null;
             }
 
@@ -56,7 +58,7 @@ subalcatelApp.config(function Config($httpProvider, jwtInterceptorProvider) {
                 return token;
             }
 
-            return token;
+            //return token;
         }
     ];
 
