@@ -81,22 +81,24 @@ subalcatelApp.directive('authenticate', [
 
                 // Check auth status
                 var init = function () {
-                    loginFactory.ping().then(
-                        function(response) {
-                            loginFactory.name = response.data.user.name;
-                            loginFactory.firstname = response.data.user.firstname;
-                            loginFactory.isAuth = true;
+                    if (localStorage.getItem('user')) {
+                        loginFactory.ping().then(
+                            function(response) {
+                                loginFactory.name = response.data.user.name;
+                                loginFactory.firstname = response.data.user.firstname;
+                                loginFactory.isAuth = true;
 
-                            var user = JSON.stringify(response.data.user);
+                                var user = JSON.stringify(response.data.user);
 
-                            // Set the stringified user data into local storage
-                            localStorage.setItem('user', user);
-                        },
-                        function(error) {
-                            console.log(error);
-                        }
-                    );
-                }
+                                // Set the stringified user data into local storage
+                                localStorage.setItem('user', user);
+                            },
+                            function(error) {
+                                console.log(error);
+                            }
+                        );
+                    }
+                };
                 init();
             }
         }
