@@ -1,16 +1,26 @@
-var subalcatelApp = angular.module('subalcatelApp',
-    [
-        'ngAnimate',
-        'ui.router',
-        'mgcrea.ngStrap',
-        'angular-jwt'
-    ]
-);
+var subalcatelApp = angular
+    .module('subalcatelApp',
+        [
+            'ngAnimate',
+            'ui.router',
+            'mgcrea.ngStrap',
+            'satellizer'
+        ]
+    )
+    .constant('api_url', '/api')
+    .constant('auth_url', '/auth')
+    .constant('guest_url', '/guest')
+    .constant('registred_url', '/registred')
+    .constant('admin_url', '/admin')
+    /*.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
+        // Satellizer configuration that specifies which API
+        // route the JWT should be retrieved from
+        $authProvider.loginUrl = '/api/authenticate';
 
-subalcatelApp.constant(
-    'api_url', '/api'
-);
+    })*/;
 
+
+/*
 subalcatelApp.config(function Config($httpProvider, jwtInterceptorProvider) {
     jwtInterceptorProvider.tokenGetter = [
         'config',
@@ -63,4 +73,4 @@ subalcatelApp.config(function Config($httpProvider, jwtInterceptorProvider) {
     ];
 
     $httpProvider.interceptors.push('jwtInterceptor');
-});
+});*/

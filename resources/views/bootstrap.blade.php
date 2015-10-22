@@ -7,7 +7,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Subalcatel</title>
         <!-- Bootstrap css -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="//rawgithub.com/mgcrea/bootstrap-additions/master/dist/bootstrap-additions.min.css">
         <link rel="stylesheet" href="//rawgithub.com/mgcrea/angular-motion/master/dist/angular-motion.min.css">
         <link rel="stylesheet" href="{{ elixir('css/subalcatel.css') }}">
@@ -27,17 +27,21 @@
         </div>
 
         <script type="text/javascript"
-                src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+                src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
         <script type="text/javascript"
-                src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
+                src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
         <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.4/angular-strap.js"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.js"></script>
         <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.2.4/angular-strap.tpl.js"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.tpl.js"></script>
         <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
-        <script type="text/javascript"
-                src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+        <!--<script type="text/javascript"
+                src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>-->
+        <!--[if lte IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/Base64/0.3.0/base64.min.js"></script>
+        <![endif]-->
+        <script src="//cdn.jsdelivr.net/satellizer/0.12.5/satellizer.min.js"></script>
 
         <!--<script type="text/javascript"
                 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>

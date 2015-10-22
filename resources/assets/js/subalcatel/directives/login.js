@@ -1,46 +1,103 @@
-subalcatelApp.directive('login', [
+subalcatelApp.directive('authenticate', [
     'loginFactory',
-    'jwtHelper',
     '$alert',
-    function(loginFactory, jwtHelper, $alert) {
+    function(loginFactory, $alert) {
         return {
-            restrict: 'AE   ',
+            restrict: 'AE',
             templateUrl: 'templates/directives/login.html',
             replace: true,
             transclude: true,
-            link: function(scope, elem, attr) {
-                scope.login = function() {
-                    loginFactory.signin(scope.credentials).
-                        success(function(login) {
-                            localStorage.setItem('id_token', login.token);
-                            loginFactory.isAuth = true;
-                            console.log(login);
-                        })
-                        .error(function(error) {
-                            var alert_error = $alert({
+            link: function (scope, iElm, iAttrs, controller) {
+                // login
+                scope.signin = function () {
+                    loginFactory.signin(scope.credentials).then(
+                        function() {
+                            loginFactory.ping().then(
+                                function(response) {
+                                    loginFactory.name = response.data.user.name;
+                                    loginFactory.firstname = response.data.user.firstname;
+                                    loginFactory.isAuth = true;
+
+                                    var user = JSON.stringify(response.data.user);
+
+                                    // Set the stringified user data into local storage
+                                    localStorage.setItem('user', user);
+                                },
+                                function(error) {
+                                    console.log(error);
+                                }
+                            );
+                        },
+                        function(error){
+                            $alert({
                                 title: 'Error',
-                                content: error.error  || 'Erreur',
+                                content: error.data.error  || 'Erreur',
                                 type: 'danger',
                                 placement: 'top',
                                 show: 'true',
                                 container: 'body'
                             });
-                        });
+                        }
+                    );
                 };
 
-                scope.ping = function() {
-                    loginFactory.ping()
-                        .success(function(data) {
-                            console.log('User is auth :' + loginFactory.isAuth);
-                            console.log(data);
-                        })
-                        .error(function(err) {
-                            console.log('User is auth :' + loginFactory.isAuth);
-                            console.log(err);
-                        });
+                // logout
+                scope.logout = function () {
+                    loginFactory.logout().then(
+                        function () {
+                            loginFactory.isAuth = false;
+                            localStorage.removeItem('user');
+                        },
+                        function (error) {
+                            console.log(error);
+                        }
+                    )
                 };
 
-                scope.isAuth = loginFactory.isAuth;
+                // check isAuth value
+                scope.check = function () {
+                    return loginFactory.isAuth;
+                };
+
+                scope.dropdown = [
+                    {
+                        "divider": true
+                    },
+                    {
+                        "text": "Deconnection",
+                        "click": "logout()"
+                    }
+                ];
+
+                // return user name from factory
+                scope.getLoggedUserName = function() {
+                    return loginFactory.name;
+                };
+
+                //return user firstname from factory
+                scope.getLoggedUserFirstname = function() {
+                    return loginFactory.firstname;
+                };
+
+                // Check auth status
+                var init = function () {
+                    loginFactory.ping().then(
+                        function(response) {
+                            loginFactory.name = response.data.user.name;
+                            loginFactory.firstname = response.data.user.firstname;
+                            loginFactory.isAuth = true;
+
+                            var user = JSON.stringify(response.data.user);
+
+                            // Set the stringified user data into local storage
+                            localStorage.setItem('user', user);
+                        },
+                        function(error) {
+                            console.log(error);
+                        }
+                    );
+                }
+                init();
             }
         }
     }

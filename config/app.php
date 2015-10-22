@@ -145,6 +145,7 @@ return [
         Subalcatel\Providers\EventServiceProvider::class,
         Subalcatel\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
     ],
 

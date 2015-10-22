@@ -1,17 +1,25 @@
 subalcatelApp.factory('loginFactory', [
-    '$http',
+    '$auth',
     'api_url',
-    function($http, api_url) {
-        var loginFact = {};
-
-        loginFact.isAuth = false;
+    'auth_url',
+    '$http',
+    function ($auth, api_url, auth_url, $http) {
+        var loginFact = {
+            isAuth: false,
+            name: null,
+            firstname: null
+        };
 
         loginFact.signin = function (credentials) {
-            return $http.post(api_url + '/auth/signin', credentials);
+            return $auth.login(credentials);
         };
 
         loginFact.ping = function() {
-            return $http.get(api_url + '/auth/ping');
+            return $http.get(api_url + auth_url + '/ping');
+        };
+
+        loginFact.logout = function () {
+            return $auth.logout();
         };
 
         return loginFact;

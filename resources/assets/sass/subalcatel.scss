@@ -31,6 +31,10 @@ body {
   color: #777 !important;
 }
 
+.alert {
+  z-index: 9999;
+}
+
 @media screen and (max-width: 767px) {
   .navbar-toggle-left {
     float: left !important;
@@ -60,5 +64,9 @@ body {
     margin-left: 15px;
     margin-right: 0;
     z-index: 2001;
+  }
+
+  .aside {
+    z-index: 2100;
   }
 }

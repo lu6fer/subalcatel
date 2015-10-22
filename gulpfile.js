@@ -17,7 +17,10 @@ elixir(function(mix) {
         .scripts(
         [
             'app.js',
-            'subalcatel/**'
+            'subalcatel/routes/**',
+            'subalcatel/main.js',
+            'subalcatel/services/**',
+            'subalcatel/directives/**'
         ],
         'public/js/subalcatel.js')
        .version(['css/subalcatel.css', 'js/subalcatel.js'])

@@ -1,11 +1,18 @@
 <div>
-    <div ng-show="isAuth">
-        <div class="navbar-right" name="user">
-            <span>User logged in</span>
-        </div>
+    <!-- User menu -->
+    <div ng-show="check()">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="dropdown-toggle" data-animation="am-fade" data-placement="bottom" bs-dropdown="dropdown"
+                   aria-haspopup="true" aria-expanded="false" >
+                    <strong>{{getLoggedUserFirstname()}} {{getLoggedUserName()}}</strong> <span class="caret"></span>
+                </a>
+            </li>
+        </ul>
     </div>
-    <div ng-hide="isAuth">
-        <form class="navbar-form navbar-right" name="login" role="login" ng-submit="login()" novalidate>
+    <!-- authentication -->
+    <div ng-hide="check()">
+        <form class="navbar-form navbar-right" name="login" role="login" ng-submit="signin()" novalidate>
             <div class="form-group">
                 <input type="email" class="form-control" placeholder="email"
                        ng-model="credentials.email" required/>
@@ -14,9 +21,6 @@
             </div>
             <button type="submit" class="btn btn-default" ng-disabled="login.$invalid">
                 Connexion
-            </button>
-            <button class="btn btn-primary" ng-click="ping()">
-                Ping
             </button>
         </form>
     </div>

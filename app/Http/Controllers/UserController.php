@@ -8,12 +8,19 @@ use Illuminate\Http\Response;
 use Subalcatel\User;
 
 
-
 /**
  * Class UserController
  * @package Subalcatel\Http\Controllers:q
  */
 class UserController extends Controller {
+
+    /*public function __construct()
+    {
+        // Apply the jwt.auth middleware to all methods in this controller
+        // except for the authenticate method. We don't want to prevent
+        // the user from retrieving their token if they don't already have it
+        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+    }*/
 
 	/**
 	 * Display all users
@@ -35,7 +42,7 @@ class UserController extends Controller {
     {
         $user = User::findBySlug($slug);
         if(empty($user)) {
-            return response()->json();
+            return response()->json(compact(["error" => "$slug not found"]));
         }
         $user->load('address');
         return response()->json($user);

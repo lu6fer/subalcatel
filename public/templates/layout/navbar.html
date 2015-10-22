@@ -1,34 +1,31 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" bs-navbar>
-    <div class="container">
-        <div class="navbar-header">
-            <div class="navbar-toggle-left">
-                <button class="navbar-toggle" type="button"
-                        bs-aside="navigation" data-placement="left" data-animation="am-slide-left"
-                        data-container="body">
-                    <span class="sr-only ng-scope">Toggle navigation</span>
-                    <span class="icon-bar ng-scope"></span>
-                    <span class="icon-bar ng-scope"></span>
-                    <span class="icon-bar ng-scope"></span>
-                </button>
-            </div>
+<nav class="navbar navbar-default" role="navigation" bs-navbar>
+    <!-- left side menu on small screen -->
+    <div class="navbar-toggle-left">
+        <button class="navbar-toggle" type="button"
+                bs-aside="navigation" data-placement="left" data-animation="am-slide-left"
+                data-container="body">
+            <span class="sr-only ng-scope">Toggle navigation</span>
+            <span class="icon-bar ng-scope"></span>
+            <span class="icon-bar ng-scope"></span>
+            <span class="icon-bar ng-scope"></span>
+        </button>
+    </div>
 
-            <a class="navbar-brand">Subalcatel</a>
+    <a class="navbar-brand">Subalcatel</a>
 
+    <!-- right side menu on small screen -->
+    <div class="navbar-toggle-right">
+        <button class="navbar-toggle" type="button"
+                bs-aside="menu" data-placement="right" data-animation="am-slide-right"
+                data-container="body" data-template-url="{{offcanvas_menu}}">
+            <span class="sr-only ng-scope">Toggle navigation</span>
+            <span class="icon-bar ng-scope"></span>
+            <span class="icon-bar ng-scope"></span>
+            <span class="icon-bar ng-scope"></span>
+        </button>
+    </div>
 
-            <div class="navbar-toggle-right">
-                <button class="navbar-toggle" type="button"
-                        bs-aside="menu" data-placement="right" data-animation="am-slide-right"
-                        data-container="body" data-template="{{offcanvas_menu}}">
-                    <span class="sr-only ng-scope">Toggle navigation</span>
-                    <span class="icon-bar ng-scope"></span>
-                    <span class="icon-bar ng-scope"></span>
-                    <span class="icon-bar ng-scope"></span>
-                </button>
-            </div>
-        </div>
-
-        <div id="navbar" class="collapse navbar-collapse">
-            <div ng-include="navbar_menu"></div>
-        </div>
+    <div id="navbar" class="collapse navbar-collapse">
+        <div ng-include="navbar_menu"></div>
     </div>
 </nav>
