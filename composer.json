@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "barryvdh/laravel-cors": "^0.7.2",
         "tymon/jwt-auth": "^0.5.5",
-        "cviebrock/eloquent-sluggable": "^3.1"
+        "cviebrock/eloquent-sluggable": "^3.1",
+	"kodeine/laravel-acl": "~1.0@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -17,7 +17,7 @@ Route::group(['prefix' => 'api'], function(){
         /*Route::post('/refresh',            'AuthController@refresh');
         Route::get('/logout',              'AuthController@logout');*/
     });
-    Route::group(['prefix' => 'registred', 'middleware' => ['jwt.auth']], function(){
+    Route::group(['prefix' => 'registred', 'middleware' => ['jwt.auth', 'acl']], function(){
         Route::get('/user',                    'UserController@index');
         Route::get('/user/{slug}',             'UserController@show');
         Route::get('/user/{slug}/level',       'UserController@levels');
@@ -48,7 +48,9 @@ Route::group(['prefix' => 'api'], function(){
         Route::get('/adhesion/insurance',      'AdhesionController@insurance');
         Route::get('/adhesion/origin',         'AdhesionController@origin');
     });
-    Route::group(['prefix' => 'admin'], function() {
+    Route::group(['prefix' => 'admin',
+                  'middelware' => ['jwt.auth', 'acl'],
+                  'is' => 'admin'], function() {
 
     });
 });
