@@ -8,6 +8,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\PayloadException;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,10 +51,20 @@ class Handler extends ExceptionHandler
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
 
-        if ($e instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+        if ($e instanceof TokenExpiredException ) {
             return response()->json(['token_expired'], $e->getStatusCode());
-        } else if ($e instanceof Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+        }
+        if ($e instanceof TokenInvalidException) {
             return response()->json(['token_invalid'], $e->getStatusCode());
+        }
+        if ($e instanceof PayloadException) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        }
+        if ($e instanceof InvalidClaimException) {
+            return response()->json(['token_invalid'], $e->getStatusCode());
+        }
+        if ($e instanceof JWTException) {
+            return response()->json(['token_absent'], $e->getStatusCode());
         }
 
         return parent::render($request, $e);

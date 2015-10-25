@@ -1,13 +1,21 @@
-subalcatelApp.directive('authenticate', [
-    'loginFactory',
-    '$alert',
-    function(loginFactory, $alert) {
+subalcatelApp.directive('logmenu', [
+    '$auth',
+    function($auth) {
         return {
             restrict: 'AE',
-            templateUrl: 'templates/directives/login.html',
+            templateUrl: 'templates/directives/logmenu.html',
             replace: true,
             transclude: true,
-            link: function (scope, iElm, iAttrs, controller) {
+            controller: function ($scope) {
+                $scope.isAuthenticated = function () {
+                    console.log($auth.isAuthenticated());
+                    return $auth.isAuthenticated();
+                }
+            }
+        }
+    }
+]);
+            /*link: function (scope, iElm, iAttrs, controller) {
                 // login
                 scope.signin = function () {
                     loginFactory.signin(scope.credentials).then(
@@ -81,7 +89,7 @@ subalcatelApp.directive('authenticate', [
 
                 // Check auth status
                 var init = function () {
-                    if (localStorage.getItem('user')) {
+                    /!*if (localStorage.getItem('user')) {
                         loginFactory.ping().then(
                             function(response) {
                                 loginFactory.name = response.data.user.name;
@@ -97,10 +105,11 @@ subalcatelApp.directive('authenticate', [
                                 console.log(error);
                             }
                         );
-                    }
+                    }*!/
+                    return loginFactory.isAuthenticated();
                 };
                 init();
             }
         }
     }
-]);
+]);*/

@@ -22,6 +22,23 @@ subalcatelApp.factory('loginFactory', [
             return $auth.logout();
         };
 
+        loginFact.isAuthenticated = function() {
+            var auth = $auth.isAuthenticated();
+            if (auth) {
+                $http.get(api_url + auth_url + '/ping')
+                    .success(function(response) {
+                       loginFact = {
+                           isAuth: true,
+                           name: response.user.name,
+                           firstname: response.user.firstname
+                       };
+                    });
+            }
+            console.log($auth.getToken());
+            console.log('authenticated : '+auth);
+            return auth;
+        };
+
         return loginFact;
     }
 ]);

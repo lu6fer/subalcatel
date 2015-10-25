@@ -36,32 +36,9 @@ class AuthController extends Controller
 
     public function check()
     {
-        try {
 
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-
-        } catch (TokenExpiredException $e) {
-
-            return response()->json(['token_expired'], $e->getStatusCode());
-
-        } catch (TokenInvalidException $e) {
-
-            return response()->json(['token_invalid'], $e->getStatusCode());
-
-        } catch (PayloadException $e) {
-
-            return response()->json(['token_invalid'], $e->getStatusCode());
-
-        } catch (InvalidClaimException $e) {
-
-            return response()->json(['token_invalid'], $e->getStatusCode());
-
-        } catch (JWTException $e) {
-
-            return response()->json(['token_absent'], $e->getStatusCode());
-
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
         }
 
         // the token is valid and we have found the user via the sub claim
