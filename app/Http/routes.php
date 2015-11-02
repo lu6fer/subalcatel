@@ -12,8 +12,8 @@
 */
 Route::group(['prefix' => 'api'], function(){
     Route::group(['prefix' => 'auth'], function() {
-        Route::post('/signin',             'AuthController@authenticate');
-        Route::get('/ping',                'AuthController@check');
+        Route::post('/login',             'AuthController@authenticate');
+        Route::get('/getAuthUser',        'AuthController@authUser');
         /*Route::post('/refresh',            'AuthController@refresh');
         Route::get('/logout',              'AuthController@logout');*/
     });

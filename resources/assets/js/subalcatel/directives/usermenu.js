@@ -7,12 +7,23 @@ subalcatelApp.directive('usermenu', [
             replace: true,
             transclude: true,
             controller: function (loginFactory, $scope) {
+
                 $scope.logout = function () {
                     loginFactory.logout()
                         .then(function(response) {
                             console.log(response);
                         });
+                };
+
+                /*var user = loginFactory.getUser();
+                if ( ! user.isAuth && loginFactory.isAuthenticated()) {
+                    console.log("user as token but no data");
+                    user = loginFactory.setUserInfo();
                 }
+
+                $scope.logged_user = user;*/
+
+                $scope.logged_user = loginFactory.getUser();
             }
         }
     }

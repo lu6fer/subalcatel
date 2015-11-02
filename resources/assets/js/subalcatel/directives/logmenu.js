@@ -1,6 +1,6 @@
 subalcatelApp.directive('logmenu', [
-    '$auth',
-    function($auth) {
+    'loginFactory',
+    function(loginFactory) {
         return {
             restrict: 'AE',
             templateUrl: 'templates/directives/logmenu.html',
@@ -8,8 +8,13 @@ subalcatelApp.directive('logmenu', [
             transclude: true,
             controller: function ($scope) {
                 $scope.isAuthenticated = function () {
-                    console.log($auth.isAuthenticated());
-                    return $auth.isAuthenticated();
+                    var user = loginFactory.getUser();
+                    if (user) {
+                        if (loginFactory.isAuthenticated() && user.isAuth) {
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             }
         }

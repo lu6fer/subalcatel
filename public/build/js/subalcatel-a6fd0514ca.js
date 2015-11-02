@@ -120,7 +120,7 @@ subalcatelApp.config([
 
         // Satellizer configuration that specifies which API
         // route the JWT should be retrieved from
-        $authProvider.loginUrl = '/api/auth/signin';
+        $authProvider.loginUrl = '/api/auth/login';
         // Guest routes
         $stateProvider
             .state('home',
@@ -162,39 +162,108 @@ subalcatelApp.factory('loginFactory', [
     'auth_url',
     '$http',
     function ($auth, api_url, auth_url, $http) {
-        var loginFact = {
-            isAuth: false,
-            name: null,
-            firstname: null
+        /**
+         * Create loginFactory object
+         * @type {{}}
+         */
+        var loginFact = {};
+
+        /**
+         * Return logged user info
+         * @returns {{isAuth: boolean, user: {name: null, firstname: null, slug: null}, menu: Array}}
+         */
+        loginFact.getUser = function() {
+            return JSON.parse(localStorage.getItem('logged_user'));
         };
 
-        loginFact.signin = function (credentials) {
-            return $auth.login(credentials);
+        /**
+         * Set logged user info
+         * @param new_user
+         */
+        loginFact.setUser = function(user) {
+            localStorage.setItem('logged_user', JSON.stringify(user));
         };
 
-        loginFact.ping = function() {
-            return $http.get(api_url + auth_url + '/ping');
+        /**
+         * Log user to backend
+         * @param credentials
+         * @returns promise
+         */
+        loginFact.login = function (credentials) {
+            var logpromise = $auth.login(credentials).then(function(user) {
+                loginFact.setUser({
+                    isAuth: true,
+                    user: {
+                        name: user.data.user.name,
+                        firstname: user.data.user.firstname,
+                        slug: user.data.user.slug
+                    },
+                    menu: loginFact.getMenu()
+                });
+            });
+
+            return logpromise;
         };
 
+        /**
+         * Logout user
+         * @returns promise
+         */
         loginFact.logout = function () {
             return $auth.logout();
         };
 
+        /**
+         * Check if user is authenticated
+         * @returns boolean
+         */
         loginFact.isAuthenticated = function() {
-            var auth = $auth.isAuthenticated();
-            if (auth) {
-                $http.get(api_url + auth_url + '/ping')
-                    .success(function(response) {
-                       loginFact = {
-                           isAuth: true,
-                           name: response.user.name,
-                           firstname: response.user.firstname
-                       };
-                    });
+            return $auth.isAuthenticated();
+        };
+
+        /**
+         * Get user menu from backend
+         * @returns {Array}
+         */
+        loginFact.getMenu = function() {
+            if ($auth.isAuthenticated()) {
+                var user_menu = [];
+                var logout_menu = [
+                    {
+                        "divider": true
+                    },
+                    {
+                        "text": "Deconnection",
+                        "click": "logout()"
+                    }
+                ];
+                /*$http.get(api_url + auth_url + '/getMenu').success(function(menu) {
+                    user_menu = menu;
+                });*/
+                user_menu.push.apply(user_menu, logout_menu);
+
+                return user_menu;
             }
-            console.log($auth.getToken());
-            console.log('authenticated : '+auth);
-            return auth;
+        };
+
+        /**
+         *
+         * @returns {{isAuth: boolean, user: {name: null, firstname: null, slug: null}, menu: Array}}
+         */
+        loginFact.setUserInfo = function() {
+            $http.get(api_url + auth_url + '/getAuthUser').then(function(user) {
+                loginFact.setUser({
+                    isAuth: true,
+                    user: {
+                        name: user.data.user.name,
+                        firstname: user.data.user.firstname,
+                        slug: user.data.user.slug
+                    },
+                    menu: loginFact.getMenu()
+                });
+
+                return loginFact.getUser();
+            });
         };
 
         return loginFact;
@@ -230,12 +299,29 @@ subalcatelApp.directive('loginform', [
             transclude: true,
             controller: function ($scope) {
                 $scope.signin = function () {
-                    loginFactory.signin($scope.credentials)
-                        .then(function(response) {
-                            console.log(response);
+                    loginFactory.login($scope.credentials)
+                        .then(function() {
+                            var logged_user = loginFactory.getUser();
+                            $alert({
+                                title: 'Bienvenue',
+                                content: 'Bienvenue ' + logged_user.user.firstname + ' ' + logged_user.user.name,
+                                type: 'success',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body',
+                                duration: 2
+                            });
                         })
                         .catch(function(error) {
-                            console.log(error);
+                            $alert({
+                                title: 'Erreur',
+                                content: error.data.error,
+                                type: 'danger',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body',
+                                duration: 5
+                            });
                         });
                 }
             }
@@ -243,8 +329,8 @@ subalcatelApp.directive('loginform', [
     }
 ]);
 subalcatelApp.directive('logmenu', [
-    '$auth',
-    function($auth) {
+    'loginFactory',
+    function(loginFactory) {
         return {
             restrict: 'AE',
             templateUrl: 'templates/directives/logmenu.html',
@@ -252,8 +338,13 @@ subalcatelApp.directive('logmenu', [
             transclude: true,
             controller: function ($scope) {
                 $scope.isAuthenticated = function () {
-                    console.log($auth.isAuthenticated());
-                    return $auth.isAuthenticated();
+                    var user = loginFactory.getUser();
+                    if (user) {
+                        if (loginFactory.isAuthenticated() && user.isAuth) {
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             }
         }
@@ -390,12 +481,23 @@ subalcatelApp.directive('usermenu', [
             replace: true,
             transclude: true,
             controller: function (loginFactory, $scope) {
+
                 $scope.logout = function () {
                     loginFactory.logout()
                         .then(function(response) {
                             console.log(response);
                         });
+                };
+
+                /*var user = loginFactory.getUser();
+                if ( ! user.isAuth && loginFactory.isAuthenticated()) {
+                    console.log("user as token but no data");
+                    user = loginFactory.setUserInfo();
                 }
+
+                $scope.logged_user = user;*/
+
+                $scope.logged_user = loginFactory.getUser();
             }
         }
     }

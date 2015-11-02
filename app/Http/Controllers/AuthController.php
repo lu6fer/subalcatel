@@ -31,10 +31,15 @@ class AuthController extends Controller
         }
 
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        $response = [
+            "token" => $token,
+            "user"  => JWTAuth::toUser($token)
+        ];
+
+        return response()->json($response);
     }
 
-    public function check()
+    public function authUser()
     {
 
         if (! $user = JWTAuth::parseToken()->authenticate()) {

@@ -41,7 +41,7 @@
         <!--[if lte IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/Base64/0.3.0/base64.min.js"></script>
         <![endif]-->
-        <script src="//cdn.jsdelivr.net/satellizer/0.12.5/satellizer.min.js"></script>
+        <script src="//cdn.jsdelivr.net/satellizer/0.13.0/satellizer.min.js"></script>
 
         <!--<script type="text/javascript"
                 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>

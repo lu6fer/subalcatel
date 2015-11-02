@@ -42,7 +42,7 @@ subalcatelApp.config([
 
         // Satellizer configuration that specifies which API
         // route the JWT should be retrieved from
-        $authProvider.loginUrl = '/api/auth/signin';
+        $authProvider.loginUrl = '/api/auth/login';
         // Guest routes
         $stateProvider
             .state('home',

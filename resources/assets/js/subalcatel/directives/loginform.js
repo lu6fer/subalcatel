@@ -12,12 +12,29 @@ subalcatelApp.directive('loginform', [
             transclude: true,
             controller: function ($scope) {
                 $scope.signin = function () {
-                    loginFactory.signin($scope.credentials)
-                        .then(function(response) {
-                            console.log(response);
+                    loginFactory.login($scope.credentials)
+                        .then(function() {
+                            var logged_user = loginFactory.getUser();
+                            $alert({
+                                title: 'Bienvenue',
+                                content: 'Bienvenue ' + logged_user.user.firstname + ' ' + logged_user.user.name,
+                                type: 'success',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body',
+                                duration: 2
+                            });
                         })
                         .catch(function(error) {
-                            console.log(error);
+                            $alert({
+                                title: 'Erreur',
+                                content: error.data.error,
+                                type: 'danger',
+                                placement: 'top',
+                                show: 'true',
+                                container: 'body',
+                                duration: 5
+                            });
                         });
                 }
             }
