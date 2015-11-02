@@ -55,4 +55,48 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasOne('Subalcatel\Address');
     }
+    public function certificate()
+    {
+        return $this->hasOne('Certificate');
+    }
+    public function adhesion()
+    {
+        return $this->hasMany('Adhesion')->orderBy('date', 'desc');
+    }
+    public function tivLicence()
+    {
+        return $this->hasOne('TivLicence')->orderBy('date', 'desc');
+    }
+    public function diveLevel()
+    {
+        return $this->hasMany('DiveLevel')->orderBy('date', 'desc');
+    }
+    public function monitorLevel()
+    {
+        return $this->hasMany('MonitorLevel')->orderBy('date', 'desc');
+    }
+    public function boatLicence()
+    {
+        return $this->hasMany('BoatLicence')->orderBy('date', 'desc');
+    }
+    public function nitroxLevel()
+    {
+        return $this->hasMany('NitroxLevel')->orderBy('date', 'desc');
+    }
+    public function dives()
+    {
+        return $this->belongsToMany('Dive')->withPivot('comment', 'drink');
+    }
+    public function diveOwner()
+    {
+        return $this->hasMany('Dive', 'owner');
+    }
+    public function articles()
+    {
+        return $this->hasMany('Article');
+    }
+    public function comments()
+    {
+        return $this->hasMany('Comment');
+    }
 }

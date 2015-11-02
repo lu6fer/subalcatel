@@ -102,7 +102,7 @@ subalcatelApp.config([
                             // If we get a rejection corresponding to one of the reasons
                             // in our array, we know we need to authenticate the user so
                             // we can remove the current user from local storage
-                            localStorage.removeItem('user');
+                            localStorage.removeItem('logged_user');
                             // Send the user to the auth state so they can login
                             $state.go('home');
                         }
@@ -481,7 +481,9 @@ subalcatelApp.directive('usermenu', [
             replace: true,
             transclude: true,
             controller: function (loginFactory, $scope) {
-
+                /**
+                 * Logout function
+                 */
                 $scope.logout = function () {
                     loginFactory.logout()
                         .then(function(response) {
@@ -489,14 +491,10 @@ subalcatelApp.directive('usermenu', [
                         });
                 };
 
-                /*var user = loginFactory.getUser();
-                if ( ! user.isAuth && loginFactory.isAuthenticated()) {
-                    console.log("user as token but no data");
-                    user = loginFactory.setUserInfo();
-                }
-
-                $scope.logged_user = user;*/
-
+                /**
+                 * Set user info
+                 * @type {{isAuth: boolean, user: {name: null, firstname: null, slug: null}, menu: Array}}
+                 */
                 $scope.logged_user = loginFactory.getUser();
             }
         }

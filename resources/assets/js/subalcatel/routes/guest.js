@@ -24,7 +24,7 @@ subalcatelApp.config([
                             // If we get a rejection corresponding to one of the reasons
                             // in our array, we know we need to authenticate the user so
                             // we can remove the current user from local storage
-                            localStorage.removeItem('user');
+                            localStorage.removeItem('logged_user');
                             // Send the user to the auth state so they can login
                             $state.go('home');
                         }
