@@ -31,6 +31,6 @@ class InsuranceLabel extends Model implements SluggableInterface
      */
     public function adhesion()
     {
-        return $this->hasMany('Adhesion', 'insurance');
+        return $this->hasMany('Subalcatel\Adhesion', 'insurance');
     }
 }

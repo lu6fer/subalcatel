@@ -29,7 +29,7 @@ class BoatLabel extends Model implements SluggableInterface
      */
     public function boatLicences()
     {
-        return $this->hasMany('BoatLicence');
+        return $this->hasMany('Subalcatel\BoatLicence');
     }
 
 }

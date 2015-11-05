@@ -31,7 +31,7 @@ class OriginLabel extends Model implements SluggableInterface
      */
     public function adhesion()
     {
-        return $this->hasMany('Adhesion', 'origine');
+        return $this->hasMany('Subalcatel\Adhesion', 'origine');
     }
 
 }

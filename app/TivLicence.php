@@ -19,6 +19,6 @@ class TivLicence extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('Subalcatel\User');
     }
 }

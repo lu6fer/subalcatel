@@ -57,46 +57,46 @@ class User extends Model implements AuthenticatableContract,
     }
     public function certificate()
     {
-        return $this->hasOne('Certificate');
+        return $this->hasOne('Subalcatel\Certificate');
     }
     public function adhesion()
     {
-        return $this->hasMany('Adhesion')->orderBy('date', 'desc');
+        return $this->hasMany('Subalcatel\Adhesion')->orderBy('date', 'desc');
     }
     public function tivLicence()
     {
-        return $this->hasOne('TivLicence')->orderBy('date', 'desc');
+        return $this->hasOne('Subalcatel\TivLicence')->orderBy('date', 'desc');
     }
     public function diveLevel()
     {
-        return $this->hasMany('DiveLevel')->orderBy('date', 'desc');
+        return $this->hasMany('Subalcatel\DiveLevel')->orderBy('date', 'desc');
     }
     public function monitorLevel()
     {
-        return $this->hasMany('MonitorLevel')->orderBy('date', 'desc');
+        return $this->hasMany('Subalcatel\MonitorLevel')->orderBy('date', 'desc');
     }
     public function boatLicence()
     {
-        return $this->hasMany('BoatLicence')->orderBy('date', 'desc');
+        return $this->hasMany('Subalcatel\BoatLicence')->orderBy('date', 'desc');
     }
     public function nitroxLevel()
     {
-        return $this->hasMany('NitroxLevel')->orderBy('date', 'desc');
+        return $this->hasMany('Subalcatel\NitroxLevel')->orderBy('date', 'desc');
     }
     public function dives()
     {
-        return $this->belongsToMany('Dive')->withPivot('comment', 'drink');
+        return $this->belongsToMany('Subalcatel\Dive')->withPivot('comment', 'drink');
     }
     public function diveOwner()
     {
-        return $this->hasMany('Dive', 'owner');
+        return $this->hasMany('Subalcatel\Dive', 'owner');
     }
     public function articles()
     {
-        return $this->hasMany('Article');
+        return $this->hasMany('Subalcatel\Article');
     }
     public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('Subalcatel\Comment');
     }
 }

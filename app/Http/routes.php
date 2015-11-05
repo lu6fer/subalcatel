@@ -18,41 +18,50 @@ Route::group(['prefix' => 'api'], function(){
         /*Route::post('/refresh',            'AuthController@refresh');
         */
     });
-    Route::group(['prefix' => 'registred', 'middleware' => ['jwt.auth', 'acl']], function(){
-        Route::get('/user',                    ['uses' => 'UserController@index']);
-        Route::get('/user/{slug}',             ['uses' => 'UserController@show']);
-        Route::get('/user/{slug}/level',       ['uses' => 'UserController@levels']);
-        Route::get('/user/{slug}/adhesion',    ['uses' => 'UserController@adhesion']);
-        Route::get('/user/{slug}/certificate', ['uses' => 'UserController@certificate']);
-        Route::get('/user/{slug}/article',     ['uses' => 'UserController@articles']);
-        Route::get('/user/{slug}/comment',     ['uses' => 'UserController@comments']);
-        Route::get('/user/{slug}/dive',        ['uses' => 'UserController@diver']);
-        Route::get('/user/{slug}/dive/owner',  ['uses' => 'UserController@diveOwner']);
+    Route::group([
+        'prefix' => 'registred',
+        //'middleware' => ['jwt.auth', 'acl']
+        ],
+        function(){
+            Route::get('/user',                    ['uses' => 'UserController@index']);
+            Route::get('/user/{slug}',             ['uses' => 'UserController@show']);
+            Route::get('/user/{slug}/level',       ['uses' => 'UserController@levels']);
+            Route::get('/user/{slug}/adhesion',    ['uses' => 'UserController@adhesion']);
+            Route::get('/user/{slug}/certificate', ['uses' => 'UserController@certificate']);
+            Route::get('/user/{slug}/article',     ['uses' => 'UserController@articles']);
+            Route::get('/user/{slug}/comment',     ['uses' => 'UserController@comments']);
+            Route::get('/user/{slug}/dive',        ['uses' => 'UserController@diver']);
+            Route::get('/user/{slug}/dive/owner',  ['uses' => 'UserController@diveOwner']);
 
-        Route::get('/address',                 ['uses' => 'AddressController@index']);
-        Route::get('/address/{id}',            ['uses' => 'AddressController@show']);
+            Route::get('/address',                 ['uses' => 'AddressController@index']);
+            Route::get('/address/{id}',            ['uses' => 'AddressController@show']);
 
-        Route::get('/article',                 ['uses' => 'ArticleController@index']);
-        Route::get('/article/{slug}',          ['uses' => 'ArticleController@show']);
-        Route::get('/article/{slug}/comment',  ['uses' => 'ArticleController@comments']);
-        Route::get('/article/{slug}/user',     ['uses' => 'ArticleController@user']);
+            Route::get('/article',                 ['uses' => 'ArticleController@index']);
+            Route::get('/article/{slug}',          ['uses' => 'ArticleController@show']);
+            Route::get('/article/{slug}/comment',  ['uses' => 'ArticleController@comments']);
+            Route::get('/article/{slug}/user',     ['uses' => 'ArticleController@user']);
 
-        Route::get('/level',                   ['uses' => 'LevelsController@index']);
-        Route::get('/level/boat',              ['uses' => 'LevelsController@boat']);
-        Route::get('/level/dive',              ['uses' => 'LevelsController@dive']);
-        Route::get('/level/nitrox',            ['uses' => 'LevelsController@nitrox']);
-        Route::get('/level/monitor',           ['uses' => 'LevelsController@monitor']);
+            Route::get('/level',                   ['uses' => 'LevelsController@index']);
+            Route::get('/level/boat',              ['uses' => 'LevelsController@boat']);
+            Route::get('/level/dive',              ['uses' => 'LevelsController@dive']);
+            Route::get('/level/nitrox',            ['uses' => 'LevelsController@nitrox']);
+            Route::get('/level/monitor',           ['uses' => 'LevelsController@monitor']);
 
-        Route::get('/dive',                    ['uses' => 'DivesController@index']);
-        Route::get('/dive/{slug}/user',        ['uses' => 'DivesController@registered']);
+            Route::get('/dive',                    ['uses' => 'DivesController@index']);
+            Route::get('/dive/{slug}/user',        ['uses' => 'DivesController@registered']);
 
-        Route::get('/adhesion/insurance',      ['uses' => 'AdhesionController@insurance']);
-        Route::get('/adhesion/origin',         ['uses' => 'AdhesionController@origin']);
+            Route::get('/adhesion/insurance',      ['uses' => 'AdhesionController@insurance']);
+            Route::get('/adhesion/origin',         ['uses' => 'AdhesionController@origin']);
     });
 
-    Route::group(['prefix' => 'admin', 'middelware' => ['jwt.auth', 'acl'], 'is' => 'admin'], function() {
-
-    });
+    Route::group([
+        'prefix' => 'admin',
+        'middelware' => ['jwt.auth', 'acl'],
+        'is' => 'admin'
+        ],
+        function() {
+        }
+    );
 });
 
 
