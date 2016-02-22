@@ -17,7 +17,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::get('/logout',             ['uses' => 'AuthController@logout']);
         /*Route::post('/refresh',            'AuthController@refresh');
         */
-    });
+    });http://subalcatel.localhost/
     Route::group([
         'prefix' => 'registred',
         //'middleware' => ['jwt.auth', 'acl']
